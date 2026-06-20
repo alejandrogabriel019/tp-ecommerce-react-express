@@ -1,0 +1,36 @@
+.header{
+    padding: 20px 30px;
+    margin-bottom: 30px;
+}
+
+.header h1{
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav a{
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.productos-link{
+    font-size: 18px;
+}
+
+.carrito-icono{
+    font-size: 24px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.carrito-icono:hover{
+    transform: scale(1.1);
+}
