@@ -6,14 +6,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// RUTAS
 const productosRoutes = require("./routes/productos");
-
 app.use("/productos", productosRoutes);
 
-app.get("/",(req, res) => {
+// TEST API
+app.get("/", (req, res) => {
     res.send("Backend funcionando");
 });
 
-app.listen(3000, () => {
-    console.log("Servidor corriendo en puerto 3000");
+// PUERTO (IMPORTANTE PARA RENDER)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("Servidor corriendo en puerto", PORT);
 });
