@@ -4,7 +4,10 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors({
-    origin: "https://tp-ecommerce-react-express.vercel.app"
+    origin: [
+        "https://tp-ecommerce-react-express.vercel.app",
+        /\.vercel\.app$/
+    ]
 }));
 
 app.use(express.json());
