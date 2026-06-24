@@ -11,12 +11,17 @@ db.serialize(() => {
     `);
 
     db.run(`
-        INSERT INTO productos (nombre, precio)
-        VALUES
-        ('Chocolate', 800),
-        ('Gomitas', 500),
-        ('Paleta', 300)
-    `);
+    INSERT INTO productos (nombre, precio)
+    VALUES
+    ('Bocadito Marroc', 1200),
+    ('Dos Corazones', 1500),
+    ('Paragüitas de chocolate', 1100),
+    ('Monedas de chocolate', 850),
+    ('Bocadito Kooky Bon', 900),
+    ('Bananita Felfort', 700),
+    ('Tableta de chocolate con leche', 1400),
+    ('Chupetín Chupelatin', 650)
+`);
 
 });
 
