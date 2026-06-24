@@ -1,6 +1,10 @@
 import ProductoCard from "../ProductoCard/ProductoCard";
 
 function ListaProductos({ productos, agregarAlCarrito }) {
+  if (!Array.isArray(productos)) {
+    return <p>Cargando productos...</p>;
+  }
+
   return (
     <>
       <h2 className="titulo-productos">Productos</h2>
