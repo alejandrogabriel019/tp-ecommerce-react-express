@@ -12,7 +12,13 @@ import CarritoPage from "./pages/CarritoPage";
 function App() {
 
   // Estado que guarda los productos agregados al carrito
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState(() => {
+
+  const carritoGuardado = localStorage.getItem("carrito");
+
+  return carritoGuardado ? JSON.parse(carritoGuardado) : [];
+
+});
 
   // Estado que guarda los productos obtenidos desde la API
   const [productos, setProductos] = useState([]);
@@ -120,6 +126,16 @@ function App() {
       .catch((error) => console.error(error));
 
   }, []);
+
+  // Guarda el carrito en localStorage cada vez que cambia
+useEffect(() => {
+
+  localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+  );
+
+}, [carrito]);
 
   return (
     <div className="App">
