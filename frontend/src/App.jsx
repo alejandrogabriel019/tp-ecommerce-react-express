@@ -20,7 +20,7 @@ function App() {
   // Agrega un producto al carrito
   const agregarAlCarrito = (producto) => {
 
-    // Busca si el producto ya existe en el carrito
+    // find devuelve el primer elemento que cumple la condicion 
     const productoExistente = carrito.find(
       (item) => item.id === producto.id
     );
@@ -105,13 +105,16 @@ function App() {
   useEffect(() => {
 
     // Solicita los productos al backend Express
-    fetch("http://localhost:3000/productos")
+    fetch("https://tp-ecommerce-react-express.onrender.com/productos")
 
       // Convierte la respuesta a JSON
       .then((respuesta) => respuesta.json())
 
       // Guarda los productos recibidos en el estado
-      .then((datos) => setProductos(datos))
+      .then((datos) => {
+  console.log("Datos recibidos:", datos);
+  setProductos(datos);
+})
 
       // Muestra errores en consola
       .catch((error) => console.error(error));
