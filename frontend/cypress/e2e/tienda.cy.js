@@ -38,3 +38,31 @@ it('agrega productos y calcula el total correctamente', () => {
   cy.contains('Total')
 
 })
+
+it("mantiene el carrito después de recargar la página", () => {
+
+  cy.visit("http://localhost:5173");
+
+  cy.contains("Agregar").click();
+
+  cy.contains("🛒 Carrito (1)").click();
+
+  cy.reload();
+
+  cy.contains("🛒 Carrito (1)");
+
+});
+
+it("permite eliminar un producto del carrito", () => {
+
+  cy.visit("http://localhost:5173");
+
+  cy.contains("Agregar").click();
+
+  cy.contains("🛒 Carrito (1)").click();
+
+  cy.contains("Eliminar").click();
+
+  cy.contains("🛒 Carrito (0)");
+
+});
