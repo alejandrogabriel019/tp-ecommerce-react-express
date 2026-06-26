@@ -13,140 +13,83 @@ function App() {
 
   // Estado que guarda los productos agregados al carrito
   const [carrito, setCarrito] = useState(() => {
-
-  const carritoGuardado = localStorage.getItem("carrito");
-
-  return carritoGuardado ? JSON.parse(carritoGuardado) : [];
-
-});
+    const carritoGuardado = localStorage.getItem("carrito");
+    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
+  });
 
   // Estado que guarda los productos obtenidos desde la API
   const [productos, setProductos] = useState([]);
 
-  // Agrega un producto al carrito
+  // Agregar al carrito
   const agregarAlCarrito = (producto) => {
-
-    // find devuelve el primer elemento que cumple la condicion 
     const productoExistente = carrito.find(
       (item) => item.id === producto.id
     );
 
-    // Si ya existe, aumenta su cantidad
     if (productoExistente) {
-
       const nuevoCarrito = carrito.map((item) =>
-
-        // Si es el producto buscado, crea una copia
-        // aumentando la cantidad en 1
         item.id === producto.id
           ? { ...item, cantidad: item.cantidad + 1 }
           : item
       );
-
-      // Actualiza el estado del carrito
       setCarrito(nuevoCarrito);
-
     } else {
-
-      // Si no existe, agrega el producto al carrito
-      // con cantidad inicial igual a 1
       setCarrito([
         ...carrito,
-        {
-          ...producto,
-          cantidad: 1
-        }
+        { ...producto, cantidad: 1 }
       ]);
-
     }
-
   };
 
-  // Elimina completamente un producto del carrito
+  // Eliminar producto
   const eliminarDelCarrito = (id) => {
-
-    // Conserva todos los productos excepto
-    // el que tiene el id recibido
     const nuevoCarrito = carrito.filter(
       (producto) => producto.id !== id
     );
-
     setCarrito(nuevoCarrito);
   };
 
-  // Aumenta la cantidad de un producto
+  // Aumentar cantidad
   const aumentarCantidad = (id) => {
-
     const nuevoCarrito = carrito.map((producto) =>
-
-      // Si coincide el id, aumenta la cantidad
       producto.id === id
         ? { ...producto, cantidad: producto.cantidad + 1 }
         : producto
     );
-
     setCarrito(nuevoCarrito);
   };
 
-  // Disminuye la cantidad de un producto
+  // Disminuir cantidad
   const disminuirCantidad = (id) => {
-
-    const nuevoCarrito = carrito.map((producto) =>
-
-      // Si coincide el id, resta 1 unidad
-      producto.id === id
-        ? { ...producto, cantidad: producto.cantidad - 1 }
-        : producto
-
-    )
-
-    // Elimina automáticamente productos
-    // cuya cantidad llegó a 0
-    .filter((producto) => producto.cantidad > 0);
+    const nuevoCarrito = carrito
+      .map((producto) =>
+        producto.id === id
+          ? { ...producto, cantidad: producto.cantidad - 1 }
+          : producto
+      )
+      .filter((producto) => producto.cantidad > 0);
 
     setCarrito(nuevoCarrito);
   };
 
-  // Se ejecuta una sola vez al cargar la aplicación
+  // Traer productos
   useEffect(() => {
-
-    // Solicita los productos al backend Express
     fetch("https://tp-ecommerce-react-express.onrender.com/productos")
-
-      // Convierte la respuesta a JSON
-      .then((respuesta) => respuesta.json())
-
-      // Guarda los productos recibidos en el estado
-      .then((datos) => {
-  console.log("Datos recibidos:", datos);
-  setProductos(datos);
-})
-
-      // Muestra errores en consola
-      .catch((error) => console.error(error));
-
+      .then((res) => res.json())
+      .then((data) => setProductos(data))
+      .catch((err) => console.error(err));
   }, []);
 
-  // Guarda el carrito en localStorage cada vez que cambia
-useEffect(() => {
-
-  localStorage.setItem(
-    "carrito",
-    JSON.stringify(carrito)
-  );
-
-}, [carrito]);
+  // Guardar carrito en localStorage
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
 
   return (
     <div className="App">
-
-      {/* Header recibe el carrito para mostrar
-          la cantidad total de productos */}
       <Header carrito={carrito} />
 
       <Routes>
-
-        {/* Página principal de productos */}
         <Route
           path="/"
           element={
@@ -157,7 +100,6 @@ useEffect(() => {
           }
         />
 
-        {/* Página del carrito */}
         <Route
           path="/carrito"
           element={
@@ -169,11 +111,9 @@ useEffect(() => {
             />
           }
         />
-
       </Routes>
-
     </div>
   );
 }
 
-export default App
+export default App;
