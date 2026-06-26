@@ -1,3 +1,4 @@
+import "./ListaProductos.css";
 import ProductoCard from "../ProductoCard/ProductoCard";
 
 function ListaProductos({ productos, agregarAlCarrito }) {
