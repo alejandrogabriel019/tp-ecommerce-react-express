@@ -5,6 +5,7 @@ const app = express();
 
 app.use(cors({
     origin: [
+        "http://localhost:5173",
         "https://tp-ecommerce-react-express.vercel.app",
         /\.vercel\.app$/
     ]
